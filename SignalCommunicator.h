@@ -1,23 +1,31 @@
-#ifndef SIGNALCOMMUNICATOR_H
-#define SIGNALCOMMUNICATOR_H
+#ifndef SIGNAL_COMMUNICATOR_H
+#define SIGNAL_COMMUNICATOR_H
 
-//#include "stm32f1xx_hal.h"
-
+#include <cstdint>
+#include "SignalCommunicator.h"
+#include <vector>
 class SignalCommunicator {
 public:
-    int *huart;
     // Constructor
-    SignalCommunicator(int *huart);//todo
-    
+    SignalCommunicator();
+
     // Initialization function
     void init();
-    
-    // Function to send data
-    void sendData(int *data, int size);//todo
-    
-    // Function to receive data
-    void receiveData(int *buffer, int size);//todo
 
+    // Function to send single register command
+    vector<int8_t> sendSingleRegisterCommand(uint8_t deviceAddress, uint16_t registerAddressStart, int data, bool data_sign);
+
+    // Function to send multi-register command
+    vector<int8_t> sendMultiRegisterCommand(uint8_t deviceAddress, uint16_t registerAddressStart, uint16_t registerCount, int data1,int data2, bool data_sign);
+
+    vector<int> receiveMultiRegisterCommand(uint8_t deviceAddress, uint16_t registerAddressStart, uint16_t registerCount);
+
+private:
+    // UART handle or pointer, adjust type as per your actual use case
+        // Modbus¥\¯à½X
+    static const uint8_t READ_MULTIPLE_REGISTERS = 0x03;
+    static const uint8_t WRITE_SINGLE_REGISTER = 0x06;
+    static const uint8_t WRITE_MULTIPLE_REGISTERS = 0x10;
 };
 
-#endif // SIGNALCOMMUNICATOR_H
+#endif // SIGNAL_COMMUNICATOR_H
