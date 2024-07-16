@@ -17,7 +17,8 @@ public:
 
     // Function to send multi-register command
     vector<int8_t> sendMultiRegisterCommand(uint8_t deviceAddress, uint16_t registerAddressStart, uint16_t registerCount, int data1,int data2, bool data_sign);
-
+   
+    // Function to receive multi-register command
     vector<int> receiveMultiRegisterCommand(uint8_t deviceAddress, uint16_t registerAddressStart, uint16_t registerCount);
 
 private:
